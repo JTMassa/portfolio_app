@@ -33,3 +33,17 @@ jobs:
         run: |
          docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:$GITHUB_RUN_NUMBER
          docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app
+
+  deploy:
+      needs: Build
+      runs-on: ubuntu-latest
+      steps:
+        - name: SSH to Linux and run container 
+          uses: appleboy/ssh-action@v1
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.KEY }}
+            script: |
+                docker rm -f portfolio || echo "Container not found, skipping removal"
+                docker run -d -p 80:85 --name portfolio ${{ secrets.DOCKER_USERNAME }}/ciportfolio
