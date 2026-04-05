@@ -13,6 +13,7 @@ jobs:
       - name: Number of processors
         run: nproc
   test:
+    needs: Build
     runs-on: ubuntu-latest
     steps:
        - name: Hello 
