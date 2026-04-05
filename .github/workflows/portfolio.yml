@@ -8,16 +8,13 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - name: uptime
-        run: uptime
-      - name: Number of processors
-        run: nproc
-  test:
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-       - name: Hello 
-         run: echo "Hello, world!"
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build Docker image
+        run: docker build -t JTMassa/ciportfolio .
+      - name: list images
+        run: docker images
+  
     
        
 
