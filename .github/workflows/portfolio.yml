@@ -26,6 +26,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app:Tawe .
+        run: |
+         docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app:$GITHUB_RUN_NUMBER .
+         docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app .
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:Tawe
+        run: |
+         docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:$GITHUB_RUN_NUMBER
+         docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app
