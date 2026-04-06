@@ -46,5 +46,4 @@ jobs:
             key: ${{ secrets.KEY }}
             script: |
                 docker rm -f portfolio || echo "Container not found, skipping removal"
-                docker rmi -f ${{ secrets.DOCKER_USERNAME }}/portfolio-app:latest || echo "Image not found, skipping removal"
                 docker run -d -p 8080:80 --name portfolio ${{ secrets.DOCKER_USERNAME }}/portfolio-app:latest
