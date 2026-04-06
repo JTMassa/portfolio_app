@@ -1,4 +1,4 @@
-name: Build, Scan, and Deploy Portfolio App
+name: Build, Scan, and Deploy 
 on:
   push:
     branches: [ main ]
