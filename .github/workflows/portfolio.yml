@@ -45,5 +45,6 @@ jobs:
             username: ${{ secrets.USERNAME }}
             key: ${{ secrets.KEY }}
             script: |
-                docker rm -f portfolio || echo "Container not found, skipping removal"
-                docker run -d -p 8080:80 --name portfolio ${{ secrets.DOCKER_USERNAME }}/portfolio-app:latest
+             docker rm -f $(docker images -q ${{ secrets.DOCKER_USERNAME }}/portfolio-app:$GITHUB_RUN_NUMBER) || true
+             docker rmi -f $(docker images -q ${{ secrets.DOCKER_USERNAME }}/portfolio-app:latest) || true
+             docker run -d -p 8080:80 --name portfolio ${{ secrets.DOCKER_USERNAME }}/portfolio-app:latest
